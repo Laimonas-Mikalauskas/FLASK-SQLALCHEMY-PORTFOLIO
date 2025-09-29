@@ -4,21 +4,21 @@ import datetime
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///manoprojektai.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myprojects.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
 db = SQLAlchemy(app)
 
-class Projektas(db.Model):
-    __tablename__ = 'projektai'
+class Project(db.Model):
+    __tablename__ = 'projects'
 
     id = db.Column(db.Integer, primary_key=True)
     pavadinimas = db.Column(db.String(200), nullable=False)
     kaina = db.Column(db.Float, nullable=False)
-    sukurimo_data = db.Column(db.DateTime, default=datetime.datetime.now)
+    creation date = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def __repr__(self):
-        return f'::Pavadinimas {self.pavadinimas}, kaina: {self.kaina}, sukurimo data: {self.sukurimo_data}::'
+        return f'::Title {self.title}, price: {self.price}, creation date: {self.}::'
 
 with app.app_context():
     db.create_all()
