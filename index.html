@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projektai</title>
+</head>
+<body>
+    <h1>Projektu sarasas</h1>
+    <ul>
+        {% for projektas in projektas_rows %}
+            <li>{{ projektas.pavadinimas }} - {{ projektas.kaina }} EUR - {{ projektas.sukurimo_data }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
