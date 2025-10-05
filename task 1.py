@@ -1,35 +1,32 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import datetime
+from datetime import datetime
 
+from sqlalchemy.sql.ddl import CreateTable
 
+# Configuration
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myprojects.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projektai.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-class Project(db.Model):
-    __tablename__ = 'projects'
-
+class Employee(db.Model):
+    __tablename__ = "employee"
     id = db.Column(db.Integer, primary_key=True)
-    pavadinimas = db.Column(db.String(200), nullable=False)
-    kaina = db.Column(db.Float, nullable=False)
-    creation date = db.Column(db.DateTime, default=datetime.datetime.now)
+    name = db.Column(db.String(100), nullable=False)
+    position = db.Column(db.String(100), nullable=False)
 
-    def __repr__(self):
-        return f'::Title {self.title}, price: {self.price}, creation date: {self.}::'
+    # Relation with FinishedWork (one project has many FinishedWork
+    to_finish_the_work = db.relationship('Finished Work', backref='project', cascade='all, delete-orphan')
 
-with app.app_context():
-    db.create_all()
-
-@app.route('/')
-def home():
-    all_projects = Projektas.query.all()
-    return render_template('index.html', my_projects=all_projects)
-
-if __name__ == '__main__':
-    app.run()
+class FinishedWork(db.Model):
+    __tablename__ = 'finished_work'
+    id = db.Column(db.Integer, primary_key=True)
+    work = db.Column(db.String(100), nullable=False)
+    estimate = db.Column(db.Float, nullable=False)
+    company = db.Column(db.String(100), nullable=False)
 
 
 
